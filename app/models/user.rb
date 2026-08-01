@@ -16,8 +16,20 @@ class User < ApplicationRecord
            foreign_key: :invited_by_id,
            dependent: :nullify
 
-  validates :email, presence: true
-  validates :username, presence: true
+  validates :email,
+          presence: true,
+          uniqueness: {
+            case_sensitive: false
+          }
+  validates :username,
+          presence: true,
+          uniqueness: {
+            case_sensitive: false
+          }
 
   normalizes :email, with: ->(e) { e.strip.downcase }
+
+  def display_name
+    username.presence || email
+  end
 end

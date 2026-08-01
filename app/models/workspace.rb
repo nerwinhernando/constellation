@@ -7,6 +7,7 @@ class Workspace < ApplicationRecord
            through: :memberships
 
   has_many :plans,
+           -> { order(created_at: :desc) },
            dependent: :destroy
 
   has_many :invitations,
@@ -23,6 +24,10 @@ class Workspace < ApplicationRecord
     }, prefix: true
 
   before_validation :generate_slug, on: :create
+
+  def to_param
+    slug
+  end
 
   private
 
