@@ -2,12 +2,12 @@ class WorkspacesController < ApplicationController
   before_action :require_authentication
 
   def index
-    @workspaces = Current.user.owned_workspaces
+    @workspaces = Current.user.workspaces
   end
 
   def show
     @workspace = Current.user
-                        .owned_workspaces
+                        .workspaces
                         .find(params[:id])
   end
 
