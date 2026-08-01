@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_08_01_091411) do
+ActiveRecord::Schema[8.1].define(version: 2026_08_01_102726) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
@@ -41,6 +41,22 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_01_091411) do
     t.index ["user_id"], name: "index_memberships_on_user_id"
     t.index ["workspace_id", "user_id"], name: "index_memberships_on_workspace_id_and_user_id", unique: true
     t.index ["workspace_id"], name: "index_memberships_on_workspace_id"
+  end
+
+  create_table "plans", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.datetime "archived_at"
+    t.datetime "created_at", null: false
+    t.text "description"
+    t.date "ends_on"
+    t.jsonb "settings", default: {}, null: false
+    t.date "starts_on"
+    t.string "status", default: "draft", null: false
+    t.string "title", null: false
+    t.datetime "updated_at", null: false
+    t.uuid "workspace_id", null: false
+    t.index ["archived_at"], name: "index_plans_on_archived_at"
+    t.index ["status"], name: "index_plans_on_status"
+    t.index ["workspace_id"], name: "index_plans_on_workspace_id"
   end
 
   create_table "sessions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -86,6 +102,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_01_091411) do
   add_foreign_key "invitations", "workspaces"
   add_foreign_key "memberships", "users"
   add_foreign_key "memberships", "workspaces"
+  add_foreign_key "plans", "workspaces"
   add_foreign_key "sessions", "users"
   add_foreign_key "workspaces", "users", column: "owner_id"
 end

@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   resource :dashboard, only: :show, controller: "dashboard"
 
   resources :workspaces do
+    resources :plans
     resources :invitations
   end
 

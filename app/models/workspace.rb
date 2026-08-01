@@ -1,5 +1,14 @@
 class Workspace < ApplicationRecord
   belongs_to :owner, class_name: "User"
+  has_many :memberships,
+           dependent: :destroy
+
+  has_many :users,
+           through: :memberships
+
+  has_many :plans,
+           dependent: :destroy
+
   has_many :invitations,
            dependent: :destroy
 
