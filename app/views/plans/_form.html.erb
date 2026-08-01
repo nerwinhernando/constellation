@@ -1,0 +1,47 @@
+<%= form_with model: [@workspace, @plan] do |form| %>
+
+  <% if @plan.errors.any? %>
+    <div>
+      <h2>
+        <%= pluralize(@plan.errors.count, "error") %>
+        prevented this plan from being saved.
+      </h2>
+
+      <ul>
+        <% @plan.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <p>
+    <%= form.label :title %><br>
+    <%= form.text_field :title %>
+  </p>
+
+  <p>
+    <%= form.label :description %><br>
+    <%= form.text_area :description, rows: 6 %>
+  </p>
+
+  <p>
+    <%= form.label :status %><br>
+
+    <%= form.select :status,
+                    Plan.statuses.keys.map { |s| [s.humanize, s] } %>
+  </p>
+
+  <p>
+    <%= form.label :starts_on %><br>
+    <%= form.date_field :starts_on %>
+  </p>
+
+  <p>
+    <%= form.label :ends_on %><br>
+    <%= form.date_field :ends_on %>
+  </p>
+
+  <%= form.submit %>
+
+<% end %>
