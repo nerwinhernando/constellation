@@ -433,6 +433,7 @@ PLATFORMS
 
 DEPENDENCIES
   annotate (~> 2.6)
+  bcrypt (~> 3.1.7)
   bootsnap
   brakeman
   bullet (~> 8.1)
