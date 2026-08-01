@@ -1,0 +1,19 @@
+alice_owner:
+  workspace: wedding
+  user: alice
+  role: owner
+
+bob_admin:
+  workspace: wedding
+  user: bob
+  role: admin
+
+charlie_member:
+  workspace: wedding
+  user: charlie
+  role: member
+
+diana_guest:
+  workspace: wedding
+  user: diana
+  role: guest
