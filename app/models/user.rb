@@ -11,6 +11,10 @@ class User < ApplicationRecord
             dependent: :restrict_with_exception
 
   has_many :business_profiles, dependent: :destroy
+  has_many :sent_invitations,
+           class_name: "Invitation",
+           foreign_key: :invited_by_id,
+           dependent: :nullify
 
   validates :email_address, presence: true
   validates :username, presence: true
