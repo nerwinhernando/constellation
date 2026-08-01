@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_08_01_102726) do
+ActiveRecord::Schema[8.1].define(version: 2026_08_01_130142) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
@@ -43,6 +43,17 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_01_102726) do
     t.index ["workspace_id"], name: "index_memberships_on_workspace_id"
   end
 
+  create_table "phases", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.boolean "collapsed", default: false, null: false
+    t.datetime "created_at", null: false
+    t.uuid "plan_id", null: false
+    t.integer "position", default: 0, null: false
+    t.string "title", null: false
+    t.datetime "updated_at", null: false
+    t.index ["plan_id", "position"], name: "index_phases_on_plan_id_and_position"
+    t.index ["plan_id"], name: "index_phases_on_plan_id"
+  end
+
   create_table "plans", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.datetime "archived_at"
     t.datetime "created_at", null: false
@@ -66,6 +77,28 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_01_102726) do
     t.string "user_agent"
     t.uuid "user_id", null: false
     t.index ["user_id"], name: "index_sessions_on_user_id"
+  end
+
+  create_table "tasks", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "assignee_id"
+    t.datetime "completed_at"
+    t.datetime "created_at", null: false
+    t.text "description"
+    t.date "due_on"
+    t.uuid "phase_id", null: false
+    t.integer "position", default: 0, null: false
+    t.string "priority", default: "normal", null: false
+    t.jsonb "settings", default: {}, null: false
+    t.date "starts_on"
+    t.string "status", default: "todo", null: false
+    t.string "title", null: false
+    t.datetime "updated_at", null: false
+    t.index ["assignee_id"], name: "index_tasks_on_assignee_id"
+    t.index ["due_on"], name: "index_tasks_on_due_on"
+    t.index ["phase_id", "position"], name: "index_tasks_on_phase_id_and_position"
+    t.index ["phase_id"], name: "index_tasks_on_phase_id"
+    t.index ["priority"], name: "index_tasks_on_priority"
+    t.index ["status"], name: "index_tasks_on_status"
   end
 
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -102,7 +135,10 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_01_102726) do
   add_foreign_key "invitations", "workspaces"
   add_foreign_key "memberships", "users"
   add_foreign_key "memberships", "workspaces"
+  add_foreign_key "phases", "plans"
   add_foreign_key "plans", "workspaces"
   add_foreign_key "sessions", "users"
+  add_foreign_key "tasks", "phases"
+  add_foreign_key "tasks", "users", column: "assignee_id"
   add_foreign_key "workspaces", "users", column: "owner_id"
 end
