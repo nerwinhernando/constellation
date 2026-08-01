@@ -1,0 +1,54 @@
+<h1>Plans</h1>
+
+<p>
+  <%= link_to "New Plan",
+      new_workspace_plan_path(@workspace) %>
+</p>
+
+<% if @plans.empty? %>
+
+  <p>No plans yet.</p>
+
+<% else %>
+
+  <table>
+
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Status</th>
+        <th></th>
+      </tr>
+    </thead>
+
+    <tbody>
+
+      <% @plans.each do |plan| %>
+
+        <tr>
+
+          <td>
+            <%= link_to plan.title,
+                [@workspace, plan] %>
+          </td>
+
+          <td>
+            <%= plan.status.humanize %>
+          </td>
+
+          <td>
+
+            <%= link_to "Edit",
+                edit_workspace_plan_path(@workspace, plan) %>
+
+          </td>
+
+        </tr>
+
+      <% end %>
+
+    </tbody>
+
+  </table>
+
+<% end %>

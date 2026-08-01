@@ -1,0 +1,59 @@
+<h2>Planning</h2>
+
+<p>
+
+<%= link_to "View Plans",
+            workspace_plans_path(@workspace) %>
+
+</p>
+<h1><%= @plan.title %></h1>
+
+<p>
+
+<strong>Status</strong>
+
+<%= @plan.status.humanize %>
+
+</p>
+
+<p>
+
+<strong>Description</strong>
+
+</p>
+
+<p>
+
+<%= simple_format(@plan.description) %>
+
+</p>
+
+<p>
+
+<strong>Starts</strong>
+
+<%= @plan.starts_on %>
+
+</p>
+
+<p>
+
+<strong>Ends</strong>
+
+<%= @plan.ends_on %>
+
+</p>
+
+<hr>
+
+<p>
+
+<%= link_to "Edit",
+    edit_workspace_plan_path(@workspace, @plan) %>
+
+|
+
+<%= link_to "Back",
+    workspace_plans_path(@workspace) %>
+
+</p>
