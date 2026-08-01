@@ -2,7 +2,7 @@
 
 puts "Creating workspaces..."
 
-owner = User.find_by!(email_address: "alice@example.com")
+owner = User.find_by!(email: "alice@example.com")
 
 workspace = Workspace.find_or_initialize_by(
   slug: "john-and-mary-wedding"

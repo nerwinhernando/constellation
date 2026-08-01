@@ -9,7 +9,7 @@ workspace = Workspace.find_by!(slug: "john-and-mary-wedding")
   ["charlie@example.com", "member"],
   ["diana@example.com", "guest"]
 ].each do |email, role|
-  user = User.find_by!(email_address: email)
+  user = User.find_by!(email: email)
 
   membership = Membership.find_or_initialize_by(
     workspace: workspace,

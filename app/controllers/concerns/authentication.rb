@@ -14,11 +14,11 @@ module Authentication
 
   private
     def authenticated?
-      resume_session
+      resume_session && Current.user.present?
     end
 
     def require_authentication
-      resume_session || request_authentication
+      (resume_session && Current.user.present?) || request_authentication
     end
 
     def resume_session

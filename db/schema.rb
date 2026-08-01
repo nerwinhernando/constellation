@@ -43,19 +43,19 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_01_091411) do
     t.index ["workspace_id"], name: "index_memberships_on_workspace_id"
   end
 
-  create_table "sessions", force: :cascade do |t|
+  create_table "sessions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "ip_address"
     t.datetime "updated_at", null: false
     t.string "user_agent"
-    t.bigint "user_id", null: false
+    t.uuid "user_id", null: false
     t.index ["user_id"], name: "index_sessions_on_user_id"
   end
 
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "avatar_url"
     t.datetime "created_at", null: false
-    t.string "email_address", null: false
+    t.string "email", null: false
     t.datetime "last_seen_at"
     t.string "locale"
     t.string "name"
@@ -64,7 +64,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_01_091411) do
     t.string "timezone"
     t.datetime "updated_at", null: false
     t.string "username"
-    t.index ["email_address"], name: "index_users_on_email_address", unique: true
+    t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
@@ -86,5 +86,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_01_091411) do
   add_foreign_key "invitations", "workspaces"
   add_foreign_key "memberships", "users"
   add_foreign_key "memberships", "workspaces"
+  add_foreign_key "sessions", "users"
   add_foreign_key "workspaces", "users", column: "owner_id"
 end

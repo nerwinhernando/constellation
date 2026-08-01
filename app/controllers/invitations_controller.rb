@@ -1,12 +1,9 @@
 class InvitationsController < ApplicationController
   before_action :require_authentication
 
-  def new
+  def accept
   end
 
-  def create
-  end
-
-  def index
+  def complete
   end
 end
