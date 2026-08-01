@@ -19,6 +19,26 @@ class Membership < ApplicationRecord
 
   before_create :set_joined_at
 
+  def owner_or_admin?
+    owner? || admin?
+  end
+
+  def can_manage_workspace?
+    owner_or_admin?
+  end
+
+  def can_manage_plans?
+    owner_or_admin?
+  end
+
+  def can_invite_members?
+    owner_or_admin?
+  end
+
+  def can_manage_marketplace?
+    owner_or_admin?
+  end
+
   private
 
   def set_joined_at

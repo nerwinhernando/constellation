@@ -1,4 +1,11 @@
 class PlanPolicy < ApplicationPolicy
+  class Scope < Scope
+    def resolve
+      scope.joins(workspace: :memberships)
+           .where(memberships: { user_id: user.id })
+    end
+  end
+
   def index?
     member?
   end

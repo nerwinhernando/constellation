@@ -1,10 +1,19 @@
-class PlansController < ApplicationController
-  before_action :require_authentication
-  before_action :set_workspace
-  before_action :set_plan, only: %i[show edit update destroy]
+class PlansController < WorkspaceScopedController
+  include Pundit::Authorization
+
+  before_action :set_plan, only: %i[
+    show
+    edit
+    update
+    destroy
+  ]
+
+  after_action :verify_authorized
+  after_action :verify_policy_scoped, only: :index
 
   def index
-    @plans = policy_scope(@workspace.plans).order(created_at: :desc)
+    @plans = policy_scope(@workspace.plans)
+               .order(created_at: :desc)
   end
 
   def show
@@ -23,8 +32,10 @@ class PlansController < ApplicationController
     authorize @plan
 
     if @plan.save
-      redirect_to [@workspace, @plan],
-                  notice: "Plan created successfully."
+      redirect_to(
+        [@workspace, @plan],
+        notice: "Plan created successfully."
+      )
     else
       render :new,
              status: :unprocessable_entity
@@ -39,8 +50,10 @@ class PlansController < ApplicationController
     authorize @plan
 
     if @plan.update(plan_params)
-      redirect_to [@workspace, @plan],
-                  notice: "Plan updated successfully."
+      redirect_to(
+        [@workspace, @plan],
+        notice: "Plan updated successfully."
+      )
     else
       render :edit,
              status: :unprocessable_entity
@@ -50,29 +63,29 @@ class PlansController < ApplicationController
   def destroy
     authorize @plan
 
-    @plan.destroy
+    @plan.destroy!
 
-    redirect_to workspace_plans_path(@workspace),
-                notice: "Plan deleted."
+    redirect_to(
+      workspace_plans_path(@workspace),
+      notice: "Plan deleted."
+    )
   end
 
   private
-
-  def set_workspace
-    @workspace = Current.user.workspaces.find(params[:workspace_id])
-  end
 
   def set_plan
     @plan = @workspace.plans.find(params[:id])
   end
 
   def plan_params
-    params.require(:plan).permit(
-      :title,
-      :description,
-      :status,
-      :starts_on,
-      :ends_on
-    )
+    params
+      .require(:plan)
+      .permit(
+        :title,
+        :description,
+        :status,
+        :starts_on,
+        :ends_on
+      )
   end
 end
