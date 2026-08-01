@@ -1,0 +1,7 @@
+wedding:
+  owner: alice
+  name: John & Mary's Wedding
+  slug: john-and-mary-wedding
+  description: Wedding planning workspace.
+  visibility: private
+  settings: {}

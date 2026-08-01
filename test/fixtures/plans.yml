@@ -1,0 +1,17 @@
+master:
+  workspace: wedding
+  title: Wedding Master Plan
+  description: Master planning document.
+  status: active
+
+vendors:
+  workspace: wedding
+  title: Vendor Coordination
+  description: Coordinate all vendors.
+  status: draft
+
+timeline:
+  workspace: wedding
+  title: Ceremony Timeline
+  description: Timeline for the wedding day.
+  status: draft

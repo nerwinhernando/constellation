@@ -1,0 +1,7 @@
+future_member:
+  workspace: wedding
+  invited_by: alice
+  email: future.member@example.com
+  role: member
+  token: invitation-token-123
+  expires_at: <%= 7.days.from_now %>
