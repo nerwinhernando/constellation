@@ -1,0 +1,17 @@
+<h1>Dashboard</h1>
+
+<p>Welcome <%= Current.user.name %></p>
+
+<h2>Your Workspaces</h2>
+
+<ul>
+  <% @workspaces.each do |workspace| %>
+    <li>
+      <%= link_to workspace.name, workspace %>
+    </li>
+  <% end %>
+</ul>
+
+<p>
+  <%= link_to "Create Workspace", new_workspace_path %>
+</p>

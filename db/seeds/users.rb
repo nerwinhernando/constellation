@@ -28,7 +28,7 @@ USERS = [
 ]
 
 USERS.each do |attributes|
-  user = User.find_or_initialize_by(email_address: attributes[:email])
+  user = User.find_or_initialize_by(email: attributes[:email])
 
   user.assign_attributes(
     name: attributes[:name],

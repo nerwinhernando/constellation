@@ -1,0 +1,9 @@
+<h1>Constellation</h1>
+
+<p>AI-first collaborative planning platform.</p>
+
+<% if authenticated? %>
+  <%= link_to "Go to Dashboard", dashboard_path %>
+<% else %>
+  <%= link_to "Sign In", new_session_path %>
+<% end %>
