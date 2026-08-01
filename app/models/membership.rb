@@ -19,6 +19,15 @@ class Membership < ApplicationRecord
 
   before_create :set_joined_at
 
+  scope :owners,
+        -> { where(role: :owner) }
+
+  scope :admins,
+        -> { where(role: :admin) }
+
+  scope :members_only,
+        -> { where(role: :member) }
+
   def owner_or_admin?
     owner? || admin?
   end
