@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-  resources :workspaces
+  resources :workspaces do
+    resources :invitations
+  end
   resource :session
   resources :passwords, param: :token
 end

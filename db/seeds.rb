@@ -8,6 +8,7 @@ puts "=" * 80
 load Rails.root.join("db/seeds/users.rb")
 load Rails.root.join("db/seeds/workspaces.rb")
 load Rails.root.join("db/seeds/memberships.rb")
+load Rails.root.join("db/seeds/invitations.rb")
 
 puts
 puts "✅ Seed completed successfully."
