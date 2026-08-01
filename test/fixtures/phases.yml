@@ -1,0 +1,14 @@
+planning:
+  plan: master
+  title: Planning
+  position: 1
+
+ceremony:
+  plan: master
+  title: Ceremony
+  position: 2
+
+reception:
+  plan: master
+  title: Reception
+  position: 3

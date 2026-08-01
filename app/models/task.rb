@@ -1,5 +1,6 @@
 class Task < ApplicationRecord
-  belongs_to :phase
+  belongs_to :phase,
+             inverse_of: :tasks
 
   belongs_to :assignee,
              class_name: "User",
@@ -21,13 +22,29 @@ class Task < ApplicationRecord
 
   validates :title, presence: true
   validates :position, numericality: {
-    greater_than_or_equal_to: 0,
-    only_integer: true
-  }
+                greater_than_or_equal_to: 0,
+                only_integer: true
+            }
+
+  validates :status, presence: true
+  validates :priority, presence: true
 
   scope :ordered, -> { order(:position) }
   scope :completed, -> { where.not(completed_at: nil) }
   scope :pending, -> { where(completed_at: nil) }
+  scope :overdue, -> {
+    pending.where("due_on < ?", Date.current)
+  }
+
+  def completed?
+    completed_at.present?
+  end
+
+  def overdue?
+    due_on.present? &&
+      !completed? &&
+      due_on < Date.current
+  end
 
   def complete!
     update!(

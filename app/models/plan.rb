@@ -2,8 +2,9 @@ class Plan < ApplicationRecord
   belongs_to :workspace
 
   has_many :phases,
-         -> { order(:position) },
-         dependent: :destroy
+          -> { order(:position) },
+          dependent: :destroy,
+          inverse_of: :plan
 
   enum :status,
        {
@@ -16,21 +17,32 @@ class Plan < ApplicationRecord
   validates :title, presence: true
   validates :status, presence: true
 
-  scope :active_records,
-        -> { where(archived_at: nil) }
+  scope :available,
+      -> { where(archived_at: nil) }
 
   def ordered_phases
-    phases.includes(:tasks)
+    phases.includes(tasks: :assignee)
   end
 
   def total_tasks
-    phases.joins(:tasks).count
+    Task.joins(:phase)
+      .where(phases: { plan_id: id })
+      .count
   end
 
   def completed_tasks
-    phases.joins(:tasks)
-          .merge(Task.completed)
-          .count
+    Task.completed
+      .joins(:phase)
+      .where(phases: { plan_id: id })
+      .count
+  end
+
+  def remaining_tasks
+    total_tasks - completed_tasks
+  end
+
+  def completed?
+    status_completed?
   end
 
   def completion_percentage
@@ -38,6 +50,8 @@ class Plan < ApplicationRecord
 
     ((completed_tasks.to_f / total_tasks) * 100).round
   end
+
+  alias_method :progress, :completion_percentage
 
   def archived?
     archived_at.present?
