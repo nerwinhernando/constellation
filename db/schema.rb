@@ -10,10 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_08_01_085013) do
+ActiveRecord::Schema[8.1].define(version: 2026_08_01_085116) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
+
+  create_table "memberships", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "joined_at"
+    t.string "role", default: "member", null: false
+    t.datetime "updated_at", null: false
+    t.uuid "user_id", null: false
+    t.uuid "workspace_id", null: false
+    t.index ["user_id"], name: "index_memberships_on_user_id"
+    t.index ["workspace_id", "user_id"], name: "index_memberships_on_workspace_id_and_user_id", unique: true
+    t.index ["workspace_id"], name: "index_memberships_on_workspace_id"
+  end
 
   create_table "sessions", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -40,7 +52,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_01_085013) do
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
-  create_table "workspaces", force: :cascade do |t|
+  create_table "workspaces", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.datetime "archived_at"
     t.datetime "created_at", null: false
     t.text "description"
@@ -54,5 +66,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_01_085013) do
     t.index ["slug"], name: "index_workspaces_on_slug", unique: true
   end
 
+  add_foreign_key "memberships", "users"
+  add_foreign_key "memberships", "workspaces"
   add_foreign_key "workspaces", "users", column: "owner_id"
 end
