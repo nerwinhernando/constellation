@@ -1,49 +1,62 @@
-  require "test_helper"
+# frozen_string_literal: true
+
+require "test_helper"
 
 class PlanTest < ActiveSupport::TestCase
+  setup do
+    @plan = plans(:master)
+  end
+
   test "is valid with valid attributes" do
-    workspace = workspaces(:wedding)
-
-    plan = Plan.new(
-      workspace: workspace,
-      title: "Master Plan"
-    )
-
-    assert plan.valid?
+    assert @plan.valid?
   end
 
-  test "requires title" do
-    workspace = workspaces(:wedding)
+  test "requires a title" do
+    @plan.title = nil
 
-    plan = Plan.new(
-      workspace: workspace
-    )
-
-    assert_not plan.valid?
-    assert_includes plan.errors[:title], "can't be blank"
+    assert_not @plan.valid?
+    assert_includes @plan.errors[:title], "can't be blank"
   end
 
-  test "belongs to workspace" do
-    plan = plans(:master)
+  test "requires a status" do
+    @plan.status = nil
 
-    assert_equal workspaces(:wedding), plan.workspace
+    assert_not @plan.valid?
+    assert_includes @plan.errors[:status], "can't be blank"
   end
 
-  test "defaults to draft" do
-    workspace = workspaces(:wedding)
-
-    plan = workspace.plans.create!(
-      title: "Planning"
-    )
-
-    assert_equal "draft", plan.status
+  test "counts all tasks across phases" do
+    assert_equal 4, @plan.total_tasks
   end
 
-  test "can archive" do
-    plan = plans(:master)
+  test "counts completed tasks across phases" do
+    assert_equal 1, @plan.completed_tasks
+  end
 
-    plan.archive!
+  test "calculates completion percentage" do
+    assert_equal 25, @plan.completion_percentage
+  end
 
-    assert plan.archived?
+  test "calculates remaining tasks" do
+    assert_equal 3, @plan.remaining_tasks
+  end
+
+  test "is not archived by default" do
+    assert_not @plan.archived?
+  end
+
+  test "archives the plan" do
+    @plan.archive!
+
+    assert @plan.archived?
+    assert_not_nil @plan.archived_at
+  end
+
+  test "loads ordered phases" do
+    assert_equal %w[
+      Planning
+      Ceremony
+      Reception
+    ], @plan.ordered_phases.pluck(:title)
   end
 end

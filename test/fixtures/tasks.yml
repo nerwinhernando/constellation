@@ -1,0 +1,28 @@
+set_date:
+  phase: planning
+  title: Set wedding date
+  status: done
+  priority: high
+  position: 1
+  completed_at: <%= Time.current %>
+
+guest_list:
+  phase: planning
+  title: Create guest list
+  status: todo
+  priority: high
+  position: 2
+
+book_church:
+  phase: ceremony
+  title: Book church
+  status: todo
+  priority: critical
+  position: 1
+
+reserve_venue:
+  phase: reception
+  title: Reserve venue
+  status: todo
+  priority: critical
+  position: 1
