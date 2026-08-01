@@ -8,6 +8,5 @@ class WorkspaceScopedController < ApplicationController
     @workspace = Current.user.workspaces.find(params[:workspace_id])
 
     Current.workspace = @workspace
-    Current.reset_membership!
   end
 end
