@@ -52,11 +52,15 @@ group :development, :test do
 
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
+  gem "factory_bot_rails", "~> 6.5"
+  gem "faker", "~> 3.8"
 end
 
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
+  gem "annotate", "~> 2.6"
+  gem "bullet", "~> 8.1"
 end
 
 group :test do
@@ -64,3 +68,11 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
+
+gem "devise", "~> 5.0"
+gem "pundit", "~> 2.5"
+gem "view_component", "~> 4.12"
+gem "pagy", "~> 43.6"
+gem "ransack", "~> 4.4"
+
+gem "rubocop", "~> 1.88"
