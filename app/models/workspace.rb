@@ -9,7 +9,7 @@ class Workspace < ApplicationRecord
       private: "private",
       invite_only: "invite_only",
       public: "public"
-    }
+    }, prefix: true
 
   before_validation :generate_slug, on: :create
 
