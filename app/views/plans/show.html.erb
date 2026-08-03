@@ -1,57 +1,13 @@
 <h1><%= @plan.title %></h1>
 
-<p>
-  <strong>Status:</strong>
-  <%= @plan.status.humanize %>
-</p>
-
-<p>
-  <strong>Progress:</strong>
-  <%= @plan.completed_tasks %> /
-  <%= @plan.total_tasks %>
-  (<%= @plan.completion_percentage %>%)
-</p>
+<%= render "progress", plan: @plan %>
 
 <p>
   <%= link_to "New Phase",
-              new_workspace_plan_phase_path(@workspace, @plan) %>
+      new_workspace_plan_phase_path(
+        @workspace,
+        @plan
+      ) %>
 </p>
 
-<hr>
-
-<% @phases.each do |phase| %>
-  <section class="phase">
-    <header>
-      <h2><%= phase.title %></h2>
-
-      <%= link_to "Edit",
-                  edit_workspace_plan_phase_path(@workspace, @plan, phase) %>
-
-      <%= button_to "Delete",
-                    workspace_plan_phase_path(@workspace, @plan, phase),
-                    method: :delete,
-                    data: {
-                      turbo_confirm: "Delete this phase?"
-                    } %>
-    </header>
-
-    <% if phase.tasks.empty? %>
-      <p>No tasks yet.</p>
-    <% else %>
-      <ul>
-        <% phase.tasks.each do |task| %>
-          <li><%= task.title %></li>
-        <% end %>
-      </ul>
-    <% end %>
-
-    <p>
-      <%= link_to "New Task",
-                  new_workspace_plan_phase_task_path(
-                    @workspace,
-                    @plan,
-                    phase
-                  ) %>
-    </p>
-  </section>
-<% end %>
+<%= render @phases %>

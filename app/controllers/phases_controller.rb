@@ -6,7 +6,11 @@ class PhasesController < PlanScopedController
   end
 
   def create
-    @phase = @plan.phases.build(phase_params)
+    @phase = @plan.phases.build(
+      phase_params.merge(
+        position: @plan.phases.maximum(:position).to_i + 1
+      )
+    )
 
     if @phase.save
       redirect_to [@workspace, @plan],
