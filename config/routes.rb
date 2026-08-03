@@ -3,7 +3,16 @@ Rails.application.routes.draw do
   resource :dashboard, only: :show, controller: "dashboard"
 
   resources :workspaces do
-    resources :plans
+    resources :plans do
+      resources :phases, shallow: true do
+        resources :tasks, shallow: true do
+          member do
+            patch :complete
+            patch :reopen
+          end
+        end
+      end
+    end
     resources :invitations
   end
 

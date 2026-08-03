@@ -1,0 +1,13 @@
+<article class="workspace">
+  <h3>
+    <%= link_to workspace.name, workspace %>
+  </h3>
+
+  <% if workspace.description.present? %>
+    <p><%= workspace.description %></p>
+  <% end %>
+
+  <p>
+    <%= pluralize(workspace.plans.count, "plan") %>
+  </p>
+</article>

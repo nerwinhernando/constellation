@@ -1,59 +1,45 @@
-<h2>Planning</h2>
-
-<p>
-
-<%= link_to "View Plans",
-            workspace_plans_path(@workspace) %>
-
-</p>
 <h1><%= @plan.title %></h1>
 
 <p>
-
-<strong>Status</strong>
-
-<%= @plan.status.humanize %>
-
+  <strong>Status:</strong>
+  <%= @plan.status.humanize %>
 </p>
 
 <p>
-
-<strong>Description</strong>
-
-</p>
-
-<p>
-
-<%= simple_format(@plan.description) %>
-
-</p>
-
-<p>
-
-<strong>Starts</strong>
-
-<%= @plan.starts_on %>
-
-</p>
-
-<p>
-
-<strong>Ends</strong>
-
-<%= @plan.ends_on %>
-
+  <strong>Progress:</strong>
+  <%= @plan.completed_tasks %> /
+  <%= @plan.total_tasks %>
+  (<%= @plan.completion_percentage %>%)
 </p>
 
 <hr>
 
-<p>
+<% @phases.each do |phase| %>
+  <section style="margin-bottom: 2rem;">
+    <h2><%= phase.title %></h2>
 
-<%= link_to "Edit",
-    edit_workspace_plan_path(@workspace, @plan) %>
+    <ul>
+      <% phase.tasks.each do |task| %>
+        <li>
+          <% if task.completed? %>
+            ✅
+          <% else %>
+            ⬜
+          <% end %>
 
-|
+          <strong><%= task.title %></strong>
 
-<%= link_to "Back",
-    workspace_plans_path(@workspace) %>
+          <% if task.priority == "critical" %>
+            🔥
+          <% elsif task.priority == "high" %>
+            ⚠️
+          <% end %>
 
-</p>
+          <% if task.due_on.present? %>
+            (Due <%= l(task.due_on) %>)
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+  </section>
+<% end %>
