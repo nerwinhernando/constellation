@@ -1,0 +1,26 @@
+<div class="progress-card">
+
+  <h3>Progress</h3>
+
+  <div class="progress-bar">
+    <div
+      class="progress-fill"
+      style="width:<%= plan.completion_percentage %>%">
+    </div>
+  </div>
+
+  <p>
+
+    <strong>
+      <%= plan.completed_tasks %>
+    </strong>
+
+    /
+
+    <%= plan.total_tasks %>
+
+    tasks completed
+
+  </p>
+
+</div>

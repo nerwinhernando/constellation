@@ -21,10 +21,12 @@ class Task < ApplicationRecord
   }
 
   validates :title, presence: true
-  validates :position, numericality: {
-                greater_than_or_equal_to: 0,
-                only_integer: true
-            }
+  validates :position,
+            numericality: {
+              greater_than_or_equal_to: 0,
+              only_integer: true
+            },
+            allow_nil: true
 
   validates :status, presence: true
   validates :priority, presence: true
@@ -38,6 +40,10 @@ class Task < ApplicationRecord
 
   def completed?
     completed_at.present?
+  end
+
+  def pending?
+    !completed?
   end
 
   def overdue?
@@ -58,5 +64,29 @@ class Task < ApplicationRecord
       status: :todo,
       completed_at: nil
     )
+  end
+
+  def status_icon
+    case status
+    when "todo"
+      "⬜"
+    when "doing"
+      "🟡"
+    when "blocked"
+      "🚫"
+    when "done"
+      "✅"
+    end
+  end
+
+  def priority_icon
+    case priority
+    when "critical"
+      "🔥"
+    when "high"
+      "⚠️"
+    else
+      ""
+    end
   end
 end

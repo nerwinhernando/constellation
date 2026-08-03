@@ -1,9 +1,29 @@
-<div class="task">
-  <%= check_box_tag "", task.id, task.completed? %>
+<div class="task-row">
 
-  <%= task.title %>
+  <div>
 
-  <% if task.priority == "critical" %>
-    <span>🔥</span>
-  <% end %>
+    <%= task.status_icon %>
+
+    <%= task.title %>
+
+    <%= task.priority_icon %>
+
+    <% if task.overdue? %>
+      🔴
+    <% end %>
+
+  </div>
+
+  <div>
+
+    <%= link_to "Edit",
+      edit_workspace_plan_phase_task_path(
+        @workspace,
+        @plan,
+        task.phase,
+        task
+      ) %>
+
+  </div>
+
 </div>

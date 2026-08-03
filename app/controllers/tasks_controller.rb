@@ -18,7 +18,11 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = @phase.tasks.build(task_params)
+    @task = @phase.tasks.build(
+      task_params.merge(
+        position: @phase.tasks.maximum(:position).to_i + 1
+      )
+    )
 
     if @task.save
       redirect_to [@workspace, @plan],

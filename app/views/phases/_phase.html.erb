@@ -1,5 +1,37 @@
-<section class="phase">
-  <h2><%= phase.title %></h2>
+<div class="phase-card">
 
-  <%= render phase.tasks %>
-</section>
+  <header>
+
+    <h2><%= phase.title %></h2>
+
+    <%= link_to "Edit",
+        edit_workspace_plan_phase_path(
+          @workspace,
+          @plan,
+          phase
+        ) %>
+
+  </header>
+
+  <% if phase.tasks.any? %>
+
+    <%= render phase.tasks.ordered %>
+
+  <% else %>
+
+    <p>No tasks yet.</p>
+
+  <% end %>
+
+  <p>
+
+    <%= link_to "Add Task",
+        new_workspace_plan_phase_task_path(
+          @workspace,
+          @plan,
+          phase
+        ) %>
+
+  </p>
+
+</div>

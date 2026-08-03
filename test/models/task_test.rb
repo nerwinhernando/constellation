@@ -62,4 +62,22 @@ class TaskTest < ActiveSupport::TestCase
   test "pending scope returns pending tasks" do
     assert_includes Task.pending, @task
   end
+
+  test "complete! marks task completed" do
+    task = tasks(:todo)
+
+    task.complete!
+
+    assert task.completed?
+    assert_equal "done", task.status
+  end
+
+  test "reopen! reopens task" do
+    task = tasks(:done)
+
+    task.reopen!
+
+    assert_not task.completed?
+    assert_equal "todo", task.status
+  end
 end
