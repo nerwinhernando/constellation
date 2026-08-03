@@ -1,0 +1,32 @@
+<%= form_with model: workspace do |form| %>
+
+  <% if workspace.errors.any? %>
+    <div class="errors">
+      <h2>
+        <%= pluralize(workspace.errors.count, "error") %>
+        prohibited this workspace from being saved
+      </h2>
+
+      <ul>
+        <% workspace.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :name %><br>
+    <%= form.text_field :name %>
+  </div>
+
+  <div>
+    <%= form.label :description %><br>
+    <%= form.text_area :description, rows: 4 %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+
+<% end %>

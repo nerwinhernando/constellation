@@ -4,10 +4,9 @@ class PlanTreeQuery
   end
 
   def call
-    @plan
-      .phases
-      .includes(tasks: :assignee)
-      .order(:position)
+    plan.phases
+        .includes(tasks: :assignee)
+        .order(:position)
   end
 
   private

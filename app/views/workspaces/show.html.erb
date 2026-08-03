@@ -1,0 +1,34 @@
+<h1><%= @workspace.name %></h1>
+
+<% if @workspace.description.present? %>
+  <p><%= @workspace.description %></p>
+<% end %>
+
+<hr>
+
+<h2>Plans</h2>
+
+<p>
+  <%= link_to "New Plan",
+              new_workspace_plan_path(@workspace),
+              class: "button" %>
+</p>
+
+<% if @workspace.plans.any? %>
+  <ul>
+    <% @workspace.plans.each do |plan| %>
+      <li>
+        <%= link_to plan.title, [@workspace, plan] %>
+
+        —
+
+        <%= plan.completed_tasks %> /
+        <%= plan.total_tasks %>
+
+        (<%= plan.completion_percentage %>%)
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>No plans yet.</p>
+<% end %>

@@ -1,0 +1,9 @@
+<div class="task">
+  <%= check_box_tag "", task.id, task.completed? %>
+
+  <%= task.title %>
+
+  <% if task.priority == "critical" %>
+    <span>🔥</span>
+  <% end %>
+</div>

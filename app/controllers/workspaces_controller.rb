@@ -8,7 +8,7 @@ class WorkspacesController < ApplicationController
   def show
     @workspace = Current.user
                         .workspaces
-                        .find(params[:id])
+                        .find_by!(slug: params[:id])
   end
 
   def new
@@ -16,14 +16,20 @@ class WorkspacesController < ApplicationController
   end
 
   def create
-    @workspace = Current.user.owned_workspaces.build(workspace_params)
+    Workspace.transaction do
+      @workspace = Current.user.owned_workspaces.build(workspace_params)
+      @workspace.save!
 
-    if @workspace.save
-      redirect_to @workspace,
-                  notice: "Workspace created."
-    else
-      render :new, status: :unprocessable_entity
+      @workspace.memberships.create!(
+        user: Current.user,
+        role: :owner
+      )
     end
+
+    redirect_to @workspace, notice: "Workspace created."
+
+  rescue ActiveRecord::RecordInvalid
+    render :new, status: :unprocessable_entity
   end
 
   private
