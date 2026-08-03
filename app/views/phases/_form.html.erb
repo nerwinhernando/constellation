@@ -1,0 +1,23 @@
+<%= form_with model: [@workspace, @plan, phase] do |form| %>
+  <% if phase.errors.any? %>
+    <div class="errors">
+      <ul>
+        <% phase.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <p>
+    <%= form.label :title %><br>
+    <%= form.text_field :title %>
+  </p>
+
+  <p>
+    <%= form.label :position %><br>
+    <%= form.number_field :position %>
+  </p>
+
+  <%= form.submit %>
+<% end %>

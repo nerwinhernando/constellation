@@ -1,0 +1,36 @@
+<%= form_with model: [@workspace, @plan, @phase, task] do |form| %>
+
+  <% if task.errors.any? %>
+    <div class="errors">
+      <ul>
+        <% task.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <p>
+    <%= form.label :title %><br>
+    <%= form.text_field :title %>
+  </p>
+
+  <p>
+    <%= form.label :description %><br>
+    <%= form.text_area :description, rows: 4 %>
+  </p>
+
+  <p>
+    <%= form.label :priority %><br>
+    <%= form.select :priority,
+          Task.priorities.keys.map { |p| [p.humanize, p] } %>
+  </p>
+
+  <p>
+    <%= form.label :due_on %><br>
+    <%= form.date_field :due_on %>
+  </p>
+
+  <%= form.submit %>
+
+<% end %>

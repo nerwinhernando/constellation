@@ -4,8 +4,8 @@ Rails.application.routes.draw do
 
   resources :workspaces do
     resources :plans do
-      resources :phases, shallow: true do
-        resources :tasks, shallow: true do
+      resources :phases do
+        resources :tasks do
           member do
             patch :complete
             patch :reopen
