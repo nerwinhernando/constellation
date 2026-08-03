@@ -1,10 +1,9 @@
 # app/controllers/plans_controller.rb
 
-class PlansController < ApplicationController
-  before_action :require_authentication
-  before_action :set_workspace
-  # before_action :set_plan, only: %i[show edit update destroy]
-  before_action :set_plan, only: %i[show]
+class PlansController < WorkspaceScopedController
+  before_action :set_plan, only: %i[
+    show
+  ]
 
   def show
     @phases = PlanTreeQuery.new(@plan).call
@@ -26,10 +25,6 @@ class PlansController < ApplicationController
   end
 
   private
-
-  def set_workspace
-    @workspace = Current.user.workspaces.find_by!(slug: params[:workspace_id])
-  end
 
   def set_plan
     @plan = @workspace.plans.find(params[:id])

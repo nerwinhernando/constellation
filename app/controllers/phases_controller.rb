@@ -1,7 +1,4 @@
-class PhasesController < ApplicationController
-  before_action :require_authentication
-  before_action :set_workspace
-  before_action :set_plan
+class PhasesController < PlanScopedController
   before_action :set_phase, only: %i[edit update destroy]
 
   def new
@@ -39,14 +36,6 @@ class PhasesController < ApplicationController
   end
 
   private
-
-  def set_workspace
-    @workspace = Current.user.workspaces.find_by!(slug: params[:workspace_id])
-  end
-
-  def set_plan
-    @plan = @workspace.plans.find(params[:plan_id])
-  end
 
   def set_phase
     @phase = @plan.phases.find(params[:id])
