@@ -1,0 +1,9 @@
+<%= turbo_stream.remove @task %>
+
+<%= turbo_stream.replace(
+      dom_id(@plan, :progress),
+      partial: "plans/progress",
+      locals: {
+        plan: @plan
+      }
+    ) %>

@@ -1,29 +1,70 @@
-<div class="task-row">
+<%= turbo_frame_tag task do %>
+  <div class="task-row">
 
-  <div>
+    <div class="task-info">
+      <%= task.status_icon %>
 
-    <%= task.status_icon %>
+      <strong><%= task.title %></strong>
 
-    <%= task.title %>
+      <% if task.priority_icon.present? %>
+        <%= task.priority_icon %>
+      <% end %>
 
-    <%= task.priority_icon %>
+      <% if task.overdue? %>
+        <span class="text-red">Overdue</span>
+      <% elsif task.due_on.present? %>
+        <span><%= l(task.due_on) %></span>
+      <% end %>
+    </div>
 
-    <% if task.overdue? %>
-      🔴
-    <% end %>
+    <div class="task-actions">
+
+      <% if task.completed? %>
+
+        <%= button_to "Reopen",
+            reopen_workspace_plan_phase_task_path(
+              @workspace,
+              @plan,
+              task.phase,
+              task
+            ),
+            method: :patch %>
+
+      <% else %>
+
+        <%= button_to "Complete",
+            complete_workspace_plan_phase_task_path(
+              @workspace,
+              @plan,
+              task.phase,
+              task
+            ),
+            method: :patch %>
+
+      <% end %>
+
+      <%= link_to "Edit",
+          edit_workspace_plan_phase_task_path(
+            @workspace,
+            @plan,
+            task.phase,
+            task
+          ),
+          data: { turbo: false } %>
+
+      <%= button_to "Delete",
+          workspace_plan_phase_task_path(
+            @workspace,
+            @plan,
+            task.phase,
+            task
+          ),
+          method: :delete,
+          data: {
+            turbo_confirm: "Delete this task?"
+          } %>
+
+    </div>
 
   </div>
-
-  <div>
-
-    <%= link_to "Edit",
-      edit_workspace_plan_phase_task_path(
-        @workspace,
-        @plan,
-        task.phase,
-        task
-      ) %>
-
-  </div>
-
-</div>
+<% end %>

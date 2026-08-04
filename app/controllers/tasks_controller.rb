@@ -25,8 +25,14 @@ class TasksController < ApplicationController
     )
 
     if @task.save
-      redirect_to [@workspace, @plan],
-                  notice: "Task created successfully."
+      respond_to do |format|
+        format.html do
+          redirect_to [@workspace, @plan],
+                      notice: "Task created successfully."
+        end
+
+        format.turbo_stream
+      end
     else
       render :new, status: :unprocessable_entity
     end
@@ -37,8 +43,14 @@ class TasksController < ApplicationController
 
   def update
     if @task.update(task_params)
-      redirect_to [@workspace, @plan],
-                  notice: "Task updated successfully."
+      respond_to do |format|
+        format.html do
+          redirect_to [@workspace, @plan],
+                      notice: "Task updated successfully."
+        end
+
+        format.turbo_stream
+      end
     else
       render :edit, status: :unprocessable_entity
     end
@@ -47,22 +59,40 @@ class TasksController < ApplicationController
   def destroy
     @task.destroy
 
-    redirect_to [@workspace, @plan],
-                notice: "Task deleted."
+    respond_to do |format|
+      format.html do
+        redirect_to [@workspace, @plan],
+                    notice: "Task deleted."
+      end
+
+      format.turbo_stream
+    end
   end
 
   def complete
     @task.complete!
 
-    redirect_to [@workspace, @plan],
-                notice: "Task completed."
+    respond_to do |format|
+      format.html do
+        redirect_to [@workspace, @plan],
+                    notice: "Task completed."
+      end
+
+      format.turbo_stream
+    end
   end
 
   def reopen
     @task.reopen!
 
-    redirect_to [@workspace, @plan],
-                notice: "Task reopened."
+    respond_to do |format|
+      format.html do
+        redirect_to [@workspace, @plan],
+                    notice: "Task reopened."
+      end
+
+      format.turbo_stream
+    end
   end
 
   private
