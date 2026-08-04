@@ -32,6 +32,6 @@ class Phase < ApplicationRecord
   def completion_percentage
     return 0 if total_tasks.zero?
 
-    (completed_tasks * 100.0 / total_tasks).round
+    ((completed_tasks.to_f / total_tasks) * 100).round
   end
 end
