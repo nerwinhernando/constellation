@@ -1,29 +1,32 @@
 <%= turbo_frame_tag phase do %>
 
-<div class="phase-card">
+  <div class="phase-card">
 
-  <header>
-    <h2><%= phase.title %></h2>
+    <header class="phase-header">
+      <div>
+        <h2><%= phase.title %></h2>
+      </div>
 
-    <%= link_to "Edit",
-        edit_workspace_plan_phase_path(
-          @workspace,
-          @plan,
-          phase
-        ), data: { turbo: false } %>
-  </header>
+      <div class="phase-actions">
+        <%= link_to "Edit",
+            edit_workspace_plan_phase_path(@workspace, @plan, phase),
+            data: { turbo: false } %>
+      </div>
+    </header>
 
-  <!-- Task Container -->
-  <div id="<%= dom_id(phase, :tasks) %>">
-    <%= render phase.tasks.ordered %>
+    <%= render partial: "phases/progress",
+               locals: { phase: phase } %>
+
+    <div id="<%= dom_id(phase, :tasks) %>">
+      <%= render phase.tasks.ordered %>
+    </div>
+
+    <p>
+      <%= link_to "Add Task",
+          new_workspace_plan_phase_task_path(@workspace, @plan, phase),
+          data: { turbo: false } %>
+    </p>
+
   </div>
-
-  <p>
-    <%= link_to "Add Task",
-        new_workspace_plan_phase_task_path(@workspace, @plan, phase),
-        data: { turbo: false } %>
-  </p>
-
-</div>
 
 <% end %>

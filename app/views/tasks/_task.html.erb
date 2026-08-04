@@ -1,70 +1,84 @@
 <%= turbo_frame_tag task do %>
-  <div class="task-row">
 
-    <div class="task-info">
-      <%= task.status_icon %>
+<li class="task-row <%= "task-completed" if task.completed? %>">
+
+  <div class="task-main">
+
+    <span><%= task.status_icon %></span>
+
+    <div>
 
       <strong><%= task.title %></strong>
 
-      <% if task.priority_icon.present? %>
-        <%= task.priority_icon %>
-      <% end %>
+      <div class="task-meta">
 
-      <% if task.overdue? %>
-        <span class="text-red">Overdue</span>
-      <% elsif task.due_on.present? %>
-        <span><%= l(task.due_on) %></span>
-      <% end %>
-    </div>
+        <% if task.priority_icon.present? %>
+          <%= task.priority_icon %>
+        <% end %>
 
-    <div class="task-actions">
+        <% if task.due_on.present? %>
+          • <%= l(task.due_on) %>
+        <% end %>
 
-      <% if task.completed? %>
-
-        <%= button_to "Reopen",
-            reopen_workspace_plan_phase_task_path(
-              @workspace,
-              @plan,
-              task.phase,
-              task
-            ),
-            method: :patch %>
-
-      <% else %>
-
-        <%= button_to "Complete",
-            complete_workspace_plan_phase_task_path(
-              @workspace,
-              @plan,
-              task.phase,
-              task
-            ),
-            method: :patch %>
-
-      <% end %>
-
-      <%= link_to "Edit",
-          edit_workspace_plan_phase_task_path(
-            @workspace,
-            @plan,
-            task.phase,
-            task
-          ),
-          data: { turbo: false } %>
-
-      <%= button_to "Delete",
-          workspace_plan_phase_task_path(
-            @workspace,
-            @plan,
-            task.phase,
-            task
-          ),
-          method: :delete,
-          data: {
-            turbo_confirm: "Delete this task?"
-          } %>
+      </div>
 
     </div>
 
   </div>
+
+  <div class="task-actions">
+
+    <% if task.completed? %>
+
+      <%= button_to "↩",
+          reopen_workspace_plan_phase_task_path(
+            @workspace,
+            @plan,
+            task.phase,
+            task
+          ),
+          method: :patch,
+          title: "Reopen" %>
+
+    <% else %>
+
+      <%= button_to "✓",
+          complete_workspace_plan_phase_task_path(
+            @workspace,
+            @plan,
+            task.phase,
+            task
+          ),
+          method: :patch,
+          title: "Complete" %>
+
+    <% end %>
+
+    <%= link_to "✏️",
+        edit_workspace_plan_phase_task_path(
+          @workspace,
+          @plan,
+          task.phase,
+          task
+        ),
+        data: { turbo: false },
+        title: "Edit" %>
+
+    <%= button_to "🗑",
+        workspace_plan_phase_task_path(
+          @workspace,
+          @plan,
+          task.phase,
+          task
+        ),
+        method: :delete,
+        data: {
+          turbo_confirm: "Delete task?"
+        },
+        title: "Delete" %>
+
+  </div>
+
+</li>
+
 <% end %>
