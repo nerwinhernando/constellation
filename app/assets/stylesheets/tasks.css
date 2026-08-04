@@ -1,0 +1,30 @@
+.task-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: .75rem 0;
+
+  border-bottom: 1px solid #ececec;
+}
+
+.task-main {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+}
+
+.task-meta {
+  color: #666;
+  font-size: .85rem;
+}
+
+.task-actions {
+  display: flex;
+  gap: .5rem;
+}
+
+.task-completed strong {
+  text-decoration: line-through;
+  color: #888;
+}

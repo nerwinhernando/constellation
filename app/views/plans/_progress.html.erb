@@ -1,3 +1,4 @@
+<%= turbo_frame_tag dom_id(plan, :progress) do %>
 <div class="progress-card">
 
   <h3>Progress</h3>
@@ -11,16 +12,15 @@
 
   <p>
 
-    <strong>
-      <%= plan.completed_tasks %>
-    </strong>
-
+    <strong><%= plan.completed_tasks %></strong>
     /
+    <strong><%= plan.total_tasks %></strong>
 
-    <%= plan.total_tasks %>
+    tasks
 
-    tasks completed
+    (<%= plan.completion_percentage %>%)
 
   </p>
 
 </div>
+<% end %>

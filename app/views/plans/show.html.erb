@@ -1,8 +1,6 @@
 <h1><%= @plan.title %></h1>
 
-<%= turbo_frame_tag dom_id(@plan, :progress) do %>
-  <%= render "progress", plan: @plan %>
-<% end %>
+<%= render "progress", plan: @plan %>
 
 <p>
   <%= link_to "New Phase",
