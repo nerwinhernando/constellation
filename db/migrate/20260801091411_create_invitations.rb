@@ -24,7 +24,7 @@ class CreateInvitations < ActiveRecord::Migration[8.1]
 
     add_index :invitations, :token, unique: true
     add_index :invitations,
-              [:workspace_id, :email],
+              [ :workspace_id, :email ],
               unique: true,
               where: "accepted_at IS NULL"
   end

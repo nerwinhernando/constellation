@@ -13,7 +13,7 @@ class PhasesController < PlanScopedController
     )
 
     if @phase.save
-      redirect_to [@workspace, @plan],
+      redirect_to [ @workspace, @plan ],
                   notice: "Phase created successfully."
     else
       render :new, status: :unprocessable_entity
@@ -25,7 +25,7 @@ class PhasesController < PlanScopedController
 
   def update
     if @phase.update(phase_params)
-      redirect_to [@workspace, @plan],
+      redirect_to [ @workspace, @plan ],
                   notice: "Phase updated successfully."
     else
       render :edit, status: :unprocessable_entity
@@ -35,7 +35,7 @@ class PhasesController < PlanScopedController
   def destroy
     @phase.destroy
 
-    redirect_to [@workspace, @plan],
+    redirect_to [ @workspace, @plan ],
                 notice: "Phase deleted."
   end
 
