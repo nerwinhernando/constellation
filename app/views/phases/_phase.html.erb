@@ -1,7 +1,8 @@
+<%= turbo_frame_tag phase do %>
+
 <div class="phase-card">
 
   <header>
-
     <h2><%= phase.title %></h2>
 
     <%= link_to "Edit",
@@ -9,29 +10,20 @@
           @workspace,
           @plan,
           phase
-        ) %>
-
+        ), data: { turbo: false } %>
   </header>
 
-  <% if phase.tasks.any? %>
-
+  <!-- Task Container -->
+  <div id="<%= dom_id(phase, :tasks) %>">
     <%= render phase.tasks.ordered %>
-
-  <% else %>
-
-    <p>No tasks yet.</p>
-
-  <% end %>
+  </div>
 
   <p>
-
     <%= link_to "Add Task",
-        new_workspace_plan_phase_task_path(
-          @workspace,
-          @plan,
-          phase
-        ) %>
-
+        new_workspace_plan_phase_task_path(@workspace, @plan, phase),
+        data: { turbo: false } %>
   </p>
 
 </div>
+
+<% end %>

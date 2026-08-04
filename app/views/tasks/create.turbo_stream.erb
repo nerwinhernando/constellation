@@ -1,0 +1,12 @@
+<%= turbo_stream.append(
+      dom_id(@phase, :tasks),
+      @task
+    ) %>
+
+<%= turbo_stream.replace(
+      dom_id(@plan, :progress),
+      partial: "plans/progress",
+      locals: {
+        plan: @plan
+      }
+    ) %>

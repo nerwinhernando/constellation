@@ -1,29 +1,31 @@
-<div class="task-row">
+<%= turbo_frame_tag task do %>
+  <div class="task-row">
 
-  <div>
+    <div>
 
-    <%= task.status_icon %>
+      <%= task.status_icon %>
 
-    <%= task.title %>
+      <%= task.title %>
 
-    <%= task.priority_icon %>
+      <%= task.priority_icon %>
 
-    <% if task.overdue? %>
-      🔴
-    <% end %>
+      <% if task.overdue? %>
+        🔴
+      <% end %>
+
+    </div>
+
+    <div>
+
+      <%= link_to "Edit",
+        edit_workspace_plan_phase_task_path(
+          @workspace,
+          @plan,
+          task.phase,
+          task
+        ), data: { turbo: false } %>
+
+    </div>
 
   </div>
-
-  <div>
-
-    <%= link_to "Edit",
-      edit_workspace_plan_phase_task_path(
-        @workspace,
-        @plan,
-        task.phase,
-        task
-      ) %>
-
-  </div>
-
-</div>
+<% end %>
