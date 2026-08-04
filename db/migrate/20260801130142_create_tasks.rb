@@ -36,7 +36,7 @@ class CreateTasks < ActiveRecord::Migration[8.1]
       t.timestamps
     end
 
-    add_index :tasks, [:phase_id, :position]
+    add_index :tasks, [ :phase_id, :position ]
     add_index :tasks, :status
     add_index :tasks, :priority
     add_index :tasks, :due_on

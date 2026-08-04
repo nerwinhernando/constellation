@@ -5,9 +5,9 @@ puts "Creating memberships..."
 workspace = Workspace.find_by!(slug: "john-and-mary-wedding")
 
 [
-  ["bob@example.com", "admin"],
-  ["charlie@example.com", "member"],
-  ["diana@example.com", "guest"]
+  [ "bob@example.com", "admin" ],
+  [ "charlie@example.com", "member" ],
+  [ "diana@example.com", "guest" ]
 ].each do |email, role|
   user = User.find_by!(email: email)
 

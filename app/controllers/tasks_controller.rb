@@ -27,7 +27,7 @@ class TasksController < ApplicationController
     if @task.save
       respond_to do |format|
         format.html do
-          redirect_to [@workspace, @plan],
+          redirect_to [ @workspace, @plan ],
                       notice: "Task created successfully."
         end
 
@@ -45,7 +45,7 @@ class TasksController < ApplicationController
     if @task.update(task_params)
       respond_to do |format|
         format.html do
-          redirect_to [@workspace, @plan],
+          redirect_to [ @workspace, @plan ],
                       notice: "Task updated successfully."
         end
 
@@ -61,7 +61,7 @@ class TasksController < ApplicationController
 
     respond_to do |format|
       format.html do
-        redirect_to [@workspace, @plan],
+        redirect_to [ @workspace, @plan ],
                     notice: "Task deleted."
       end
 
@@ -74,7 +74,7 @@ class TasksController < ApplicationController
 
     respond_to do |format|
       format.html do
-        redirect_to [@workspace, @plan],
+        redirect_to [ @workspace, @plan ],
                     notice: "Task completed."
       end
 
@@ -87,7 +87,7 @@ class TasksController < ApplicationController
 
     respond_to do |format|
       format.html do
-        redirect_to [@workspace, @plan],
+        redirect_to [ @workspace, @plan ],
                     notice: "Task reopened."
       end
 

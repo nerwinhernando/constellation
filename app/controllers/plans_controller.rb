@@ -17,7 +17,7 @@ class PlansController < WorkspaceScopedController
     @plan = @workspace.plans.build(plan_params)
 
     if @plan.save
-      redirect_to [@workspace, @plan],
+      redirect_to [ @workspace, @plan ],
                   notice: "Plan created successfully."
     else
       render :new, status: :unprocessable_entity
