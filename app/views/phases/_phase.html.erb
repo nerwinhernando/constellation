@@ -8,9 +8,11 @@
       </div>
 
       <div class="phase-actions">
-        <%= link_to "Edit",
+        <%= button_to "Edit",
             edit_workspace_plan_phase_path(@workspace, @plan, phase),
-            data: { turbo: false } %>
+            method: :get,
+            class: "btn btn-primary",
+            form: { data: { turbo: false } } %>
       </div>
     </header>
 
@@ -22,9 +24,11 @@
     </div>
 
     <p>
-      <%= link_to "Add Task",
+      <%= button_to "Add Task",
           new_workspace_plan_phase_task_path(@workspace, @plan, phase),
-          data: { turbo: false } %>
+          method: :get,
+          class: "btn btn-success",
+          form: { data: { turbo: false } } %>
     </p>
 
   </div>

@@ -29,53 +29,30 @@
   <div class="task-actions">
 
     <% if task.completed? %>
-
-      <%= button_to "↩",
-          reopen_workspace_plan_phase_task_path(
-            @workspace,
-            @plan,
-            task.phase,
-            task
-          ),
+      <%= button_to "Reopen",
+          reopen_workspace_plan_phase_task_path(@workspace, @plan, task.phase, task),
           method: :patch,
-          title: "Reopen" %>
-
+          class: "btn btn-secondary" %>
     <% else %>
-
-      <%= button_to "✓",
-          complete_workspace_plan_phase_task_path(
-            @workspace,
-            @plan,
-            task.phase,
-            task
-          ),
+      <%= button_to "Complete",
+          complete_workspace_plan_phase_task_path(@workspace, @plan, task.phase, task),
           method: :patch,
-          title: "Complete" %>
-
+          class: "btn btn-success" %>
     <% end %>
 
-    <%= link_to "✏️",
-        edit_workspace_plan_phase_task_path(
-          @workspace,
-          @plan,
-          task.phase,
-          task
-        ),
-        data: { turbo: false },
-        title: "Edit" %>
+    <%= button_to "Edit",
+        edit_workspace_plan_phase_task_path(@workspace, @plan, task.phase, task),
+        method: :get,
+        class: "btn btn-primary",
+        form: { data: { turbo: false } } %>
 
-    <%= button_to "🗑",
-        workspace_plan_phase_task_path(
-          @workspace,
-          @plan,
-          task.phase,
-          task
-        ),
+    <%= button_to "Delete",
+        workspace_plan_phase_task_path(@workspace, @plan, task.phase, task),
         method: :delete,
+        class: "btn btn-danger",
         data: {
-          turbo_confirm: "Delete task?"
-        },
-        title: "Delete" %>
+          turbo_confirm: "Delete this task?"
+        } %>
 
   </div>
 

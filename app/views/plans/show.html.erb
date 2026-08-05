@@ -3,11 +3,11 @@
 <%= render "progress", plan: @plan %>
 
 <p>
-  <%= link_to "New Phase",
-      new_workspace_plan_phase_path(
-        @workspace,
-        @plan
-      ) %>
+  <%= button_to "New Phase",
+    new_workspace_plan_phase_path(@workspace, @plan),
+    method: :get,
+    class: "btn btn-primary",
+    form: { data: { turbo: false } } %>
 </p>
 
 <%= render @phases %>
