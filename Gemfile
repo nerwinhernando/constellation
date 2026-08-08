@@ -75,6 +75,6 @@ gem "view_component", "~> 4.12"
 gem "pagy", "~> 43.6"
 gem "ransack", "~> 4.4"
 
-gem "rubocop", "~> 1.88"
+gem "rubocop", "~> 1.89"
 
 gem "pg", "~> 1.6"
