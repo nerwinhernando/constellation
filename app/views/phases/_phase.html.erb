@@ -1,6 +1,6 @@
 <%= turbo_frame_tag phase do %>
 
-  <div class="phase-card">
+  <%= render "shared/card" do %>
 
     <header class="phase-header">
       <div>
@@ -31,6 +31,6 @@
           form: { data: { turbo: false } } %>
     </p>
 
-  </div>
+  <% end %>
 
 <% end %>
