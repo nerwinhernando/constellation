@@ -1,22 +1,24 @@
 <%= turbo_frame_tag dom_id(plan, :progress) do %>
-<div class="progress-card">
 
-  <h3>Progress</h3>
+  <div class="progress-container">
 
-  <%= render "shared/progress_bar",
-    percentage: plan.completion_percentage %>
+    <div class="progress-header">
+      <strong>Overall Progress</strong>
 
-  <p>
+      <span>
+        <%= plan.completed_tasks %> /
+        <%= plan.total_tasks %>
+        (<%= plan.completion_percentage %>%)
+      </span>
+    </div>
 
-    <strong><%= plan.completed_tasks %></strong>
-    /
-    <strong><%= plan.total_tasks %></strong>
+    <div class="progress-bar">
+      <div
+        class="progress-fill"
+        style="width: <%= plan.completion_percentage %>%">
+      </div>
+    </div>
 
-    tasks
+  </div>
 
-    (<%= plan.completion_percentage %>%)
-
-  </p>
-
-</div>
 <% end %>

@@ -1,19 +1,23 @@
 <%= turbo_frame_tag dom_id(phase, :progress) do %>
 
-  <div class="phase-progress">
+  <div class="progress-container">
 
-    <div class="phase-progress-header">
-      <strong>Progress</strong>
+    <div class="progress-header">
+      <strong>Phase Progress</strong>
 
       <span>
         <%= phase.completed_tasks %> /
-        <%= phase.total_tasks %> tasks
+        <%= phase.total_tasks %>
         (<%= phase.completion_percentage %>%)
       </span>
     </div>
 
-    <%= render "shared/progress_bar",
-      percentage: phase.completion_percentage %>
+    <div class="progress-bar">
+      <div
+        class="progress-fill"
+        style="width: <%= phase.completion_percentage %>%">
+      </div>
+    </div>
 
   </div>
 

@@ -1,7 +1,7 @@
-@import "buttons";
-/* @import "cards";
-@import "forms";
-@import "layout";
-@import "progress"; */
-@import "plans";
-@import "tasks";
+/*
+ *= require buttons
+ *= require cards
+ *= require plans
+ *= require progress
+ *= require tasks
+ */

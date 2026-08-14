@@ -1,13 +1,17 @@
-<h1><%= @plan.title %></h1>
+<div class="plan-header">
+  <div>
+    <h1><%= @plan.title %></h1>
+  </div>
+
+  <div class="plan-actions">
+    <%= button_to "New Phase",
+        new_workspace_plan_phase_path(@workspace, @plan),
+        method: :get,
+        class: "btn btn-primary",
+        form: { data: { turbo: false } } %>
+  </div>
+</div>
 
 <%= render "progress", plan: @plan %>
-
-<p>
-  <%= button_to "New Phase",
-    new_workspace_plan_phase_path(@workspace, @plan),
-    method: :get,
-    class: "btn btn-primary",
-    form: { data: { turbo: false } } %>
-</p>
 
 <%= render @phases %>
