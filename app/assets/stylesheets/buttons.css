@@ -3,41 +3,46 @@
   align-items: center;
   justify-content: center;
 
-  padding: .55rem 1rem;
+  padding: 0.5rem 0.9rem;
 
-  border-radius: .5rem;
   border: 1px solid transparent;
+  border-radius: 0.4rem;
+
+  font-size: 0.875rem;
+  font-weight: 600;
+
+  line-height: 1.25rem;
+  text-decoration: none;
 
   cursor: pointer;
 
-  text-decoration: none;
-
-  font-size: .9rem;
-  font-weight: 600;
-
-  transition: .2s;
+  transition:
+    background-color 0.15s ease,
+    border-color 0.15s ease,
+    opacity 0.15s ease;
 }
 
 .btn:hover {
-  opacity: .9;
+  opacity: 0.9;
 }
 
 .btn-primary {
   background: #2563eb;
-  color: white;
+  color: #fff;
 }
 
 .btn-success {
   background: #16a34a;
-  color: white;
+  color: #fff;
 }
 
 .btn-secondary {
   background: #f3f4f6;
-  color: #111827;
+  border-color: #d1d5db;
+  color: #374151;
 }
 
 .btn-danger {
   background: #dc2626;
-  color: white;
+  color: #fff;
 }
