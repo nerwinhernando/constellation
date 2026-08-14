@@ -3,12 +3,8 @@
 
   <h3>Progress</h3>
 
-  <div class="progress-bar">
-    <div
-      class="progress-fill"
-      style="width:<%= plan.completion_percentage %>%">
-    </div>
-  </div>
+  <%= render "shared/progress_bar",
+    percentage: plan.completion_percentage %>
 
   <p>
 

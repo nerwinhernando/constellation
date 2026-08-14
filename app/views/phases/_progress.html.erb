@@ -12,11 +12,8 @@
       </span>
     </div>
 
-    <div class="progress-bar">
-      <div class="progress-fill"
-           style="width:<%= phase.completion_percentage %>%">
-      </div>
-    </div>
+    <%= render "shared/progress_bar",
+      percentage: phase.completion_percentage %>
 
   </div>
 
