@@ -1,6 +1,6 @@
 <%= turbo_frame_tag phase do %>
 
-  <%= render "shared/card" do %>
+  <div class="phase-card">
 
     <header class="phase-header">
       <div>
@@ -9,7 +9,11 @@
 
       <div class="phase-actions">
         <%= button_to "Edit",
-            edit_workspace_plan_phase_path(@workspace, @plan, phase),
+            edit_workspace_plan_phase_path(
+              @workspace,
+              @plan,
+              phase
+            ),
             method: :get,
             class: "btn btn-primary",
             form: { data: { turbo: false } } %>
@@ -19,18 +23,23 @@
     <%= render partial: "phases/progress",
                locals: { phase: phase } %>
 
-    <div id="<%= dom_id(phase, :tasks) %>">
+    <div class="task-list"
+         id="<%= dom_id(phase, :tasks) %>">
       <%= render phase.tasks.ordered %>
     </div>
 
-    <p>
+    <div class="phase-footer">
       <%= button_to "Add Task",
-          new_workspace_plan_phase_task_path(@workspace, @plan, phase),
+          new_workspace_plan_phase_task_path(
+            @workspace,
+            @plan,
+            phase
+          ),
           method: :get,
           class: "btn btn-success",
           form: { data: { turbo: false } } %>
-    </p>
+    </div>
 
-  <% end %>
+  </div>
 
 <% end %>
