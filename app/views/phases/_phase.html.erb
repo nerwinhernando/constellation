@@ -23,9 +23,10 @@
     <%= render partial: "phases/progress",
                locals: { phase: phase } %>
 
-    <div class="task-list"
-         id="<%= dom_id(phase, :tasks) %>">
-      <%= render phase.tasks.ordered %>
+    <div class="task-list-container">
+      <ul class="task-list" id="<%= dom_id(phase, :tasks) %>">
+        <%= render phase.tasks.ordered %>
+      </ul>
     </div>
 
     <div class="phase-footer">

@@ -33,3 +33,94 @@
   text-decoration: line-through;
   color: #888;
 }
+
+.task-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.task-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 1rem;
+
+  padding: 0.85rem 0;
+
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.task-row:last-child {
+  border-bottom: none;
+}
+
+.task-main {
+  display: flex;
+  align-items: flex-start;
+
+  gap: 0.75rem;
+
+  min-width: 0;
+}
+
+.task-status-icon {
+  flex: 0 0 auto;
+}
+
+.task-content {
+  min-width: 0;
+}
+
+.task-title {
+  display: block;
+
+  line-height: 1.4;
+
+  overflow-wrap: anywhere;
+}
+
+.task-meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+
+  gap: 0.75rem;
+
+  margin-top: 0.3rem;
+
+  font-size: 0.8rem;
+  color: #6b7280;
+}
+
+.task-priority {
+  font-weight: 600;
+}
+
+.task-due-date {
+  color: #6b7280;
+}
+
+.task-actions {
+  display: flex;
+  align-items: center;
+
+  gap: 0.4rem;
+
+  flex: 0 0 auto;
+}
+
+.task-actions .btn {
+  padding: 0.35rem 0.65rem;
+  font-size: 0.8rem;
+}
+
+.task-completed .task-title {
+  color: #6b7280;
+  text-decoration: line-through;
+}
+
+.task-completed .task-meta {
+  color: #9ca3af;
+}

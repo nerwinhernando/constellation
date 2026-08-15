@@ -1,61 +1,96 @@
 <%= turbo_frame_tag task do %>
 
-<li class="task-row <%= "task-completed" if task.completed? %>">
+  <li class="task-row <%= "task-completed" if task.completed? %>">
 
-  <div class="task-main">
+    <div class="task-main">
 
-    <span><%= task.status_icon %></span>
+      <span class="task-status-icon">
+        <%= task.status_icon %>
+      </span>
 
-    <div>
+      <div class="task-content">
 
-      <strong><%= task.title %></strong>
+        <strong class="task-title">
+          <%= task.title %>
+        </strong>
 
-      <div class="task-meta">
+        <div class="task-meta">
 
-        <% if task.priority_icon.present? %>
-          <%= task.priority_icon %>
-        <% end %>
+          <% if task.priority_icon.present? %>
+            <span class="task-priority">
+              <%= task.priority_icon %>
+              <%= task.priority.humanize %>
+            </span>
+          <% end %>
 
-        <% if task.due_on.present? %>
-          • <%= l(task.due_on) %>
-        <% end %>
+          <% if task.due_on.present? %>
+            <span class="task-due-date">
+              Due <%= l(task.due_on) %>
+            </span>
+          <% end %>
+
+        </div>
 
       </div>
 
     </div>
 
-  </div>
+    <div class="task-actions">
 
-  <div class="task-actions">
+      <% if task.completed? %>
 
-    <% if task.completed? %>
-      <%= button_to "Reopen",
-          reopen_workspace_plan_phase_task_path(@workspace, @plan, task.phase, task),
-          method: :patch,
-          class: "btn btn-secondary" %>
-    <% else %>
-      <%= button_to "Complete",
-          complete_workspace_plan_phase_task_path(@workspace, @plan, task.phase, task),
-          method: :patch,
-          class: "btn btn-success" %>
-    <% end %>
+        <%= button_to "Reopen",
+            reopen_workspace_plan_phase_task_path(
+              @workspace,
+              @plan,
+              task.phase,
+              task
+            ),
+            method: :patch,
+            class: "btn btn-secondary" %>
 
-    <%= button_to "Edit",
-        edit_workspace_plan_phase_task_path(@workspace, @plan, task.phase, task),
-        method: :get,
-        class: "btn btn-primary",
-        form: { data: { turbo: false } } %>
+      <% else %>
 
-    <%= button_to "Delete",
-        workspace_plan_phase_task_path(@workspace, @plan, task.phase, task),
-        method: :delete,
-        class: "btn btn-danger",
-        data: {
-          turbo_confirm: "Delete this task?"
-        } %>
+        <%= button_to "Complete",
+            complete_workspace_plan_phase_task_path(
+              @workspace,
+              @plan,
+              task.phase,
+              task
+            ),
+            method: :patch,
+            class: "btn btn-success" %>
 
-  </div>
+      <% end %>
 
-</li>
+      <%= button_to "Edit",
+          edit_workspace_plan_phase_task_path(
+            @workspace,
+            @plan,
+            task.phase,
+            task
+          ),
+          method: :get,
+          class: "btn btn-primary",
+          form: { data: { turbo: false } } %>
+
+      <%= button_to "Delete",
+          workspace_plan_phase_task_path(
+            @workspace,
+            @plan,
+            task.phase,
+            task
+          ),
+          method: :delete,
+          class: "btn btn-danger",
+          form: {
+            data: {
+              turbo_confirm: "Delete this task?"
+            }
+          } %>
+
+    </div>
+
+  </li>
 
 <% end %>
